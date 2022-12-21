@@ -2,6 +2,10 @@ import { FirebaseScheduleRepository } from './infra/database/firebase/repositori
 import { ScheduleRepository } from './repositories/schedule-repository'
 
 export class AppModule {
-    public scheduleDatabaseProvider: ScheduleRepository =
+    private scheduleDatabaseProvider: ScheduleRepository =
         new FirebaseScheduleRepository()
+
+    public getScheduleDatabaseProvider() {
+        return this.scheduleDatabaseProvider
+    }
 }

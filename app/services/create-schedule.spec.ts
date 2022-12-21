@@ -1,4 +1,4 @@
-import { InMemoryScheduleRepository } from '../../../tests/repositories/in-memory-repository'
+import { InMemoryScheduleRepository } from '../../tests/repositories/in-memory-repository'
 import { Period } from '../entities/Period'
 import { CreateSchedule } from './create-schedule'
 
@@ -12,6 +12,7 @@ describe('Create schedule', () => {
             day: 'Segunda',
             hour: '17:00:00',
             period: new Period(3),
+            container: 'afif',
         })
 
         expect(scheduleRepository.schedules).toHaveLength(1)

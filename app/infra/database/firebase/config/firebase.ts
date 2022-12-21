@@ -19,26 +19,4 @@ const db = firebase.getDatabase()
 const dbRef = firebase.ref(db)
 const dbPath = '1WwX5WcGfxI7kMEVW8FQuNe4NNwH3sStcw5ZNg8pAcY4'
 
-// export async function getDataFromDatabase() {
-//     let data: any
-
-//     await firebase
-//         .get(
-//             firebase.child(
-//                 dbRef,
-//                 '1WwX5WcGfxI7kMEVW8FQuNe4NNwH3sStcw5ZNg8pAcY4/Teste 9/1/22:00'
-//             )
-//         )
-//         .then(snapshot => {
-//             if (snapshot.exists()) {
-//                 data = snapshot.val()
-//             }
-//         })
-//         .catch(err => {
-//             console.log(err)
-//         })
-
-//     return data
-// }
-
 export { storage, db, dbRef, firebaseApp, firebase, dbPath }

@@ -5,7 +5,7 @@ type DeleteScheduleRequest = Schedule
 
 type DeleteScheduleResponse = void
 
-export class CreateSchedule {
+export class DeleteSchedule {
     constructor(private scheduleRepository: ScheduleRepository) {}
 
     async execute(

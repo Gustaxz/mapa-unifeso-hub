@@ -1,7 +1,5 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
-import { AppModule } from '../app/app.module'
-import { Period } from '../app/entities/Period'
-import { CreateSchedule } from '../app/services/create-schedule'
+import { app, BrowserWindow } from 'electron'
+import { IPCChannels } from './ipc'
 
 let mainWindow: BrowserWindow | null
 
@@ -37,20 +35,20 @@ async function registerListeners() {
     /**
      * This comes from bridge integration, check bridge.ts
      */
-    ipcMain.on('message', async (_, message) => {
-        const appModule = new AppModule()
-        const createSchedule = new CreateSchedule(
-            appModule.scheduleDatabaseProvider
-        )
-        const { schedule } = await createSchedule.execute({
-            course: 'Teste 9',
-            day: 'Quarta',
-            hour: '20:00',
-            period: new Period(2),
-        })
+    // ipcMain.on('message', async (_, message) => {
+    //     const appModule = new AppModule()
 
-        console.log(schedule)
-    })
+    //     const retrieveSchedule = new RetrieveSchedules(
+    //         appModule.scheduleDatabaseProvider
+    //     )
+
+    //     const allData = await retrieveSchedule.execute()
+
+    //     console.log(JSON.stringify(allData))
+    // })
+
+    const ipcChannels = new IPCChannels()
+    ipcChannels.registerIpcChannels()
 }
 
 app.on('ready', createWindow)

@@ -1,4 +1,4 @@
-import { InMemoryScheduleRepository } from '../../../tests/repositories/in-memory-repository'
+import { InMemoryScheduleRepository } from '../../tests/repositories/in-memory-repository'
 import { Period } from '../entities/Period'
 import { CreateSchedule } from './create-schedule'
 import { RetrieveSchedules } from './retrieve-schedules'
@@ -14,6 +14,7 @@ describe('Create schedule', () => {
             day: 'Segunda',
             hour: '17:00:00',
             period: new Period(3),
+            container: 'Afif',
         })
 
         await createSchedule.execute({
@@ -21,6 +22,7 @@ describe('Create schedule', () => {
             day: 'Quarta',
             hour: '17:00:00',
             period: new Period(3),
+            container: 'Afif',
         })
 
         const { results } = await retrieveSchedules.execute()

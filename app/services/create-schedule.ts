@@ -7,6 +7,7 @@ interface CreateScheduleRequest {
     hour: string
     day: string
     course: string
+    container: string
 }
 
 interface CreateScheduleResponse {
