@@ -1,5 +1,3 @@
-import { GlobalStyle } from './styles/GlobalStyle'
-
 import { Greetings } from './components/Greetings'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -37,7 +35,6 @@ export function App() {
                 pauseOnHover
                 theme="light"
             />
-            <GlobalStyle />
             <Greetings />
         </>
     )

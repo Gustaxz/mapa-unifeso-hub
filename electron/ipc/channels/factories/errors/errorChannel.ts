@@ -6,6 +6,6 @@ export function emitErrorChannel(
     errorChannel: string
 ) {
     event.sender.send(errorChannel, {
-        data: errorMessage,
+        error: errorMessage,
     })
 }

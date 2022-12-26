@@ -83,6 +83,7 @@ export function Greetings() {
                 src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg"
                 alt="ReactJS logo"
             />
+            <p className="text-blue-700">Hell</p>
             <Text>
                 An Electron boilerplate including TypeScript, React, Jest and
                 ESLint.

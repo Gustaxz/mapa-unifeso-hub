@@ -63,6 +63,8 @@ function createWindow() {
         },
     })
 
+    console.log(MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY, MAIN_WINDOW_WEBPACK_ENTRY)
+
     electronLog.info('Window created.')
 
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)

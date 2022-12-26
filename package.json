@@ -17,6 +17,7 @@
     "keywords": [],
     "license": "MIT",
     "dependencies": {
+        "autoprefixer": "^10.4.13",
         "axios": "^1.2.1",
         "dotenv": "^16.0.3",
         "electron-log": "^4.4.8",
@@ -24,12 +25,16 @@
         "electron-unhandled": "^4.0.1",
         "electron-util": "^0.17.2",
         "firebase": "^9.15.0",
+        "mini-css-extract-plugin": "^2.7.2",
+        "postcss": "^8.4.20",
+        "postcss-loader": "^7.0.2",
         "react": "17.0.2",
         "react-dom": "17.0.2",
         "react-hot-loader": "4.13.0",
         "react-toastify": "^9.1.1",
         "style-loader": "^3.3.1",
-        "styled-components": "5.3.0"
+        "styled-components": "5.3.0",
+        "tailwindcss": "^3.2.4"
     },
     "devDependencies": {
         "@babel/core": "7.14.6",
