@@ -1,8 +1,9 @@
+import { Course } from '../../../../entities/Course'
 import { Period } from '../../../../entities/Period'
 import { dbPath, dbRef, firebase } from '../config/firebase'
 
 interface DeleteScheduleFirebaseProps {
-    course: string
+    course: Course
     period: Period
     hour: string
     day: string
@@ -14,12 +15,17 @@ export class DeleteScheduleFirebase {
             const updates: any = {}
 
             updates[
-                dbPath + 'ID' + `/${course}` + `/${period.value}` + `/${hour}`
+                dbPath +
+                    'ID' +
+                    `/${course.value}` +
+                    `/${period.value}` +
+                    `/${hour}` +
+                    `/${day}`
             ] = null
 
             return firebase.update(dbRef, updates)
-        } catch (error) {
-            throw new Error('Ocorreu um erro')
+        } catch (error: any) {
+            throw new Error('Não foi possível deletar o horário.')
         }
     }
 }

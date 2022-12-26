@@ -1,3 +1,4 @@
+import { Course } from '../entities/Course'
 import { Period } from '../entities/Period'
 import { Schedule } from '../entities/Schedule'
 import { ScheduleRepository } from '../repositories/schedule-repository'
@@ -6,7 +7,7 @@ interface CreateScheduleRequest {
     period: Period
     hour: string
     day: string
-    course: string
+    course: Course
     container: string
 }
 

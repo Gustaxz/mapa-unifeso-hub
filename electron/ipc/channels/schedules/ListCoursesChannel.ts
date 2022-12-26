@@ -1,45 +1,37 @@
 import { IpcMainEvent } from 'electron'
-import { Schedule } from '../../../../app/entities/Schedule'
 import { SchedulesController } from '../../../../app/infra/http/controllers/schedules-controller'
 import { IpcChannelInterface, IpcRequest } from '../../interfaces'
 import { responseChannel } from '../factories/data/responseChannel'
 import { emitErrorChannel } from '../factories/errors/errorChannel'
 import electronLog from 'electron-log'
-import { applicationErrorChannel } from '../factories/errors/applicationErrorChannel'
 import { requiredReponseChannel } from '../factories/errors/responseChannel/requiredResponseChannel'
+import { Course } from '../../../../app/entities/Course'
 
-export class CreateScheduleChannel implements IpcChannelInterface<Schedule> {
+export class ListCoursesChannel implements IpcChannelInterface<Course> {
     getName(): string {
-        return 'create-schedule'
+        return 'list-courses'
     }
 
     async handle(
         event: IpcMainEvent,
-        request: IpcRequest<Schedule>
+        request: IpcRequest<Course>
     ): Promise<void> {
         try {
-            if (!request.params) {
-                return applicationErrorChannel(
-                    event,
-                    'É necessário um canal de resposta'
-                )
-            }
-
             if (!request.responseChannel) {
                 return requiredReponseChannel(event)
             }
 
             const scheduleContrller = new SchedulesController()
-            await scheduleContrller.createSchedule(request.params)
+            const { courses } = await scheduleContrller.listCourses()
 
-            responseChannel(event, 'Horário criado', request.responseChannel)
+            responseChannel(event, courses, request.responseChannel)
         } catch (error) {
             if (!request.responseChannel) {
                 return requiredReponseChannel(event)
             }
             emitErrorChannel(
                 event,
-                'Não foi possível criar os horários',
+                'Não foi possível retornar os dados.',
                 request.responseChannel
             )
             electronLog.error(`IPC Channel "${this.getName()}" found an error.`)

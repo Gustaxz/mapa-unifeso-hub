@@ -1,26 +1,81 @@
+import { CourseAPI } from '../../domain/api/controllers/course'
+import { ScheduleAPI } from '../../domain/api/controllers/schedule'
 import { Button } from '../Button'
 import { Container, Image, Text } from './styles'
 
 export function Greetings() {
-    function handleSayHello() {
-        window.Main.listSchedules('retrieve-data')
+    const scheduleAPI = new ScheduleAPI()
+    const courseAPI = new CourseAPI()
+
+    async function handleSayHello() {
+        const schedules = await scheduleAPI.list()
+        console.log(schedules)
 
         console.log('Message sent! Check main process log in terminal.')
     }
 
-    function handleSayNotHello() {
-        window.Main.createSchedule('retrieve-data', {
-            course: 'ccomp',
-            day: 'Segunda',
-            hour: '18:00:00',
-            period: undefined,
-            container: 'afif',
-        })
+    async function handleSayNotHello() {
+        try {
+            await scheduleAPI.create({
+                container: 'Afif',
+                course: {
+                    value: 'Teste 9',
+                },
+                day: 'Quarta',
+                hour: '20:00',
+                period: {
+                    value: '3',
+                },
+            })
+        } catch (error: any) {
+            console.error(error.message)
+        }
 
         console.log('Message sent! Check main process log in terminal.')
     }
 
-    window.Main.on('retrieve-data', (data: any) => console.log(data))
+    async function handleDelete() {
+        try {
+            await scheduleAPI.delete({
+                container: '',
+                course: {
+                    value: 'Teste 9',
+                },
+                day: 'Quarta',
+                hour: '20:00',
+                period: {
+                    value: '3',
+                },
+            })
+        } catch (error: any) {
+            console.error(error.message)
+        }
+
+        console.log('Message sent! Check main process log in terminal.')
+    }
+
+    async function handleCreateCourse() {
+        try {
+            await courseAPI.create({
+                value: 'Teste 999',
+            })
+        } catch (error: any) {
+            console.error(error.message)
+        }
+
+        console.log('Message sent! Check main process log in terminal.')
+    }
+
+    async function handleList() {
+        try {
+            const courses = await courseAPI.list()
+            console.log(courses)
+        } catch (error: any) {
+            console.error(error.message)
+        }
+
+        console.log('Message sent! Check main process log in terminal.')
+    }
 
     return (
         <Container>
@@ -32,10 +87,11 @@ export function Greetings() {
                 An Electron boilerplate including TypeScript, React, Jest and
                 ESLint.
             </Text>
-            <Button onClick={handleSayHello}>
-                Send message to main process
-            </Button>
+            <Button onClick={handleSayHello}>List schedules</Button>
             <Button onClick={handleSayNotHello}>Create an schedule</Button>
+            <Button onClick={handleCreateCourse}>Create a course</Button>
+            <Button onClick={handleDelete}>Delete an schedule</Button>
+            <Button onClick={handleList}>List courses</Button>
         </Container>
     )
 }

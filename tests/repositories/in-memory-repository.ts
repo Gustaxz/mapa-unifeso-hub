@@ -1,8 +1,10 @@
-import { Schedule } from '../../src/app/entities/Schedule'
-import { ScheduleRepository } from '../../src/app/repositories/schedule-repository'
+import { Course } from '../../app/entities/Course'
+import { Schedule } from '../../app/entities/Schedule'
+import { ScheduleRepository } from '../../app/repositories/schedule-repository'
 
 export class InMemoryScheduleRepository implements ScheduleRepository {
     public schedules: Schedule[] = []
+    public courses: Course[] = []
 
     async delete(schedule: Schedule): Promise<void> {
         const schedulesFiltered = this.schedules.filter(
@@ -22,5 +24,17 @@ export class InMemoryScheduleRepository implements ScheduleRepository {
 
     async create(schedule: Schedule): Promise<void> {
         this.schedules.push(schedule)
+    }
+
+    async createCourse(course: Course): Promise<void> {
+        this.courses.push(course)
+    }
+
+    async listCourses(): Promise<string[]> {
+        const courseNames: string[] = []
+
+        this.courses.forEach(course => courseNames.push(course.value))
+
+        return courseNames
     }
 }

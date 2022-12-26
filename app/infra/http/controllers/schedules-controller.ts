@@ -1,8 +1,10 @@
 import { AppModule } from '../../../app.module'
+import { Course } from '../../../entities/Course'
 import { Schedule } from '../../../entities/Schedule'
 import { CreateCourse } from '../../../services/create-course'
 import { CreateSchedule } from '../../../services/create-schedule'
 import { DeleteSchedule } from '../../../services/delete-schedule'
+import { ListCourses } from '../../../services/list-courses'
 import { RetrieveSchedules } from '../../../services/retrieve-schedules'
 
 export class SchedulesController {
@@ -38,7 +40,7 @@ export class SchedulesController {
         }
     }
 
-    async createCourse(course: string) {
+    async createCourse(course: Course) {
         try {
             const createCourse = new CreateCourse(
                 this.databaseScheduleProvioder
@@ -47,6 +49,20 @@ export class SchedulesController {
             await createCourse.execute(course)
         } catch (error) {
             throw new Error('Ocorreu um problema ao criar os dados')
+        }
+    }
+
+    async listCourses() {
+        try {
+            const listCourses = new ListCourses(this.databaseScheduleProvioder)
+
+            const courses = await listCourses.execute()
+
+            return {
+                courses,
+            }
+        } catch (error) {
+            throw new Error('Ocorreu um problema ao retornar os cursos.')
         }
     }
 

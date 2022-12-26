@@ -17,9 +17,8 @@ export class RetrievechedulesFirebase {
                     data = snapshot.val()
                 }
             })
-            .catch(err => {
-                console.log(err)
-                throw new Error(err)
+            .catch((): any => {
+                throw new Error('Não foi possível retornar os dados.')
             })
 
         return data

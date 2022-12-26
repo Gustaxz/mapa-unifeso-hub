@@ -17,6 +17,18 @@ export const api = {
         ipcRenderer.send('create-schedule', { responseChannel, params: data })
     },
 
+    createCourse: (responseChannel: string, data: any) => {
+        ipcRenderer.send('create-course', { responseChannel, params: data })
+    },
+
+    listCourses: (responseChannel: string) => {
+        ipcRenderer.send('list-courses', { responseChannel })
+    },
+
+    deleteSchedule: (responseChannel: string, data: any) => {
+        ipcRenderer.send('delete-schedule', { responseChannel, params: data })
+    },
+
     /**
      * Provide an easier way to listen to events
      */

@@ -1,10 +1,11 @@
+import { Course } from './Course'
 import { Period } from './Period'
 
 interface ScheduleProps {
     period: Period
     hour: string
     day: string
-    course: string
+    course: Course
     container: string
 }
 
@@ -31,11 +32,11 @@ export class Schedule {
         return this.props.day
     }
 
-    public set course(course: string) {
+    public set course(course: Course) {
         this.props.course = course
     }
 
-    public get course(): string {
+    public get course(): Course {
         return this.props.course
     }
 

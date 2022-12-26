@@ -1,6 +1,7 @@
+import { Course } from '../entities/Course'
 import { ScheduleRepository } from '../repositories/schedule-repository'
 
-type CreateCourseRequest = string
+type CreateCourseRequest = Course
 
 type CreateCourseResponse = void
 

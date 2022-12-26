@@ -4,6 +4,8 @@ import { SchedulesController } from '../../../../app/infra/http/controllers/sche
 import { IpcChannelInterface, IpcRequest } from '../../interfaces'
 import { responseChannel } from '../factories/data/responseChannel'
 import { emitErrorChannel } from '../factories/errors/errorChannel'
+import electronLog from 'electron-log'
+import { requiredReponseChannel } from '../factories/errors/responseChannel/requiredResponseChannel'
 
 export class ListSchedulesChannel implements IpcChannelInterface<Schedule> {
     getName(): string {
@@ -16,10 +18,7 @@ export class ListSchedulesChannel implements IpcChannelInterface<Schedule> {
     ): Promise<void> {
         try {
             if (!request.responseChannel) {
-                return emitErrorChannel(
-                    event,
-                    'É necessário um canal de resposta'
-                )
+                return requiredReponseChannel(event)
             }
 
             const scheduleContrller = new SchedulesController()
@@ -27,8 +26,15 @@ export class ListSchedulesChannel implements IpcChannelInterface<Schedule> {
 
             responseChannel(event, allData, request.responseChannel)
         } catch (error) {
-            console.log(error)
-            emitErrorChannel(event, 'Algo deu errado')
+            if (!request.responseChannel) {
+                return requiredReponseChannel(event)
+            }
+            emitErrorChannel(
+                event,
+                'Não foi possível retornar os dados.',
+                request.responseChannel
+            )
+            electronLog.error(`IPC Channel "${this.getName()}" found an error.`)
         }
     }
 }
