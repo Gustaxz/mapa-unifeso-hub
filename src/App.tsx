@@ -1,7 +1,9 @@
 import { Greetings } from './components/Greetings'
 import { ToastContainer, toast } from 'react-toastify'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 
 import 'react-toastify/dist/ReactToastify.css'
+import { Home } from './components/home'
 
 type errorChannel = {
     error: string
@@ -22,7 +24,7 @@ export function App() {
     })
 
     return (
-        <>
+        <HashRouter>
             <ToastContainer
                 position="top-left"
                 autoClose={5000}
@@ -35,7 +37,11 @@ export function App() {
                 pauseOnHover
                 theme="light"
             />
-            <Greetings />
-        </>
+            <Routes>
+                <Route path="/" element={<Home />}></Route>
+
+                <Route path="/main" element={<Greetings />}></Route>
+            </Routes>
+        </HashRouter>
     )
 }

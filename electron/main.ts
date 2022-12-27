@@ -47,23 +47,42 @@ electronLog.transports.file.resolvePath = () => {
 //     ),
 // })
 
-function createWindow() {
-    fs.unlink(logPath)
+// function createWindow(id: string, options: WindowOptions = {}) {
+//     const window = new BrowserWindow({
+//         ...options,
+//     })
 
+//     electronLog.info(`${id} window created.`)
+
+//     if (id === 'main') mainWindow = window
+
+//     const devServerURL = createURLRoute(process.env.ELECTRON_RENDERER_URL!, id)
+
+//     const fileRoute = createFileRoute(
+//         path.join(__dirname, '../renderer/main_window/index.html'),
+//         id
+//     )
+
+//     process.env.NODE_ENV === 'development'
+//         ? window.loadURL(devServerURL)
+//         : window.loadFile(...fileRoute)
+
+//     electronLog.info(`${id} window container loaded.`)
+
+//     return window
+// }
+
+function createWindow() {
     mainWindow = new BrowserWindow({
         // icon: path.join(assetsPath, 'assets', 'icon.png'),
         width: 1100,
         height: 700,
-        backgroundColor: '#191622',
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
             preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
-            devTools: true,
         },
     })
-
-    console.log(MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY, MAIN_WINDOW_WEBPACK_ENTRY)
 
     electronLog.info('Window created.')
 
@@ -98,8 +117,11 @@ async function registerListeners() {
     electronLog.info('IPC channels registered.')
 }
 
-app.on('ready', createWindow)
-    .whenReady()
+app.whenReady()
+    .then(() => {
+        createWindow()
+    })
+    .then(() => fs.unlink(logPath))
     .then(registerListeners)
     .catch(e => console.error(e))
 

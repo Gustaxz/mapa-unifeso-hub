@@ -1,9 +1,14 @@
+import { useLocation } from 'react-router-dom'
 import { CourseAPI } from '../../domain/api/controllers/course'
 import { ScheduleAPI } from '../../domain/api/controllers/schedule'
 import { Button } from '../Button'
 import { Container, Image, Text } from './styles'
 
 export function Greetings() {
+    const location = useLocation()
+
+    console.log(location)
+
     const scheduleAPI = new ScheduleAPI()
     const courseAPI = new CourseAPI()
 
