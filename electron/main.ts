@@ -72,6 +72,31 @@ electronLog.transports.file.resolvePath = () => {
 //     return window
 // }
 
+function createOtherWindow() {
+    let otherWindow: BrowserWindow | null
+
+    otherWindow = new BrowserWindow({
+        // icon: path.join(assetsPath, 'assets', 'icon.png'),
+        width: 800,
+        height: 500,
+        webPreferences: {
+            nodeIntegration: false,
+            contextIsolation: true,
+            preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+        },
+    })
+
+    electronLog.info('Window created.')
+
+    otherWindow.loadURL(`${MAIN_WINDOW_WEBPACK_ENTRY}/#/main`)
+
+    electronLog.info('Window container is loaded.')
+
+    otherWindow.on('closed', () => {
+        mainWindow = null
+    })
+}
+
 function createWindow() {
     mainWindow = new BrowserWindow({
         // icon: path.join(assetsPath, 'assets', 'icon.png'),
@@ -120,6 +145,7 @@ async function registerListeners() {
 app.whenReady()
     .then(() => {
         createWindow()
+        createOtherWindow()
     })
     .then(() => fs.unlink(logPath))
     .then(registerListeners)
