@@ -1,9 +1,14 @@
 import { Greetings } from './components/Greetings'
 import { ToastContainer, toast } from 'react-toastify'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import 'react-toastify/dist/ReactToastify.css'
-import { Home } from './components/home'
+import { Home } from './screens/Home'
+import { AddScheduleScreen } from './screens/Schedule/AddSchedule'
+import { ListchedulesScreen } from './screens/Schedule/ListSchedules'
+import { AddCourseScreen } from './screens/Courses/AddCourse'
+import { ListCoursesScreen } from './screens/Courses/ListSCourses'
+import { ReformScreen } from './screens/Reform'
 
 type errorChannel = {
     error: string
@@ -38,7 +43,37 @@ export function App() {
                 theme="light"
             />
             <Routes>
+                {/* Home Screen */}
                 <Route path="/" element={<Home />}></Route>
+
+                {/* Schedules Screens */}
+                <Route
+                    path="/schedule"
+                    element={<Navigate to="/schedule/add" />}
+                ></Route>
+                <Route
+                    path="/schedule/add"
+                    element={<AddScheduleScreen />}
+                ></Route>
+                <Route
+                    path="/schedule/list"
+                    element={<ListchedulesScreen />}
+                ></Route>
+
+                {/* Courses Screens */}
+                <Route
+                    path="/course"
+                    element={<Navigate to="/course/add" />}
+                ></Route>
+                <Route path="/course/add" element={<AddCourseScreen />}></Route>
+                <Route
+                    path="/course/list"
+                    element={<ListCoursesScreen />}
+                ></Route>
+
+                {/* Reform Screens */}
+                <Route path="/building" element={<ReformScreen />}></Route>
+                <Route path="/statistics" element={<ReformScreen />}></Route>
 
                 <Route path="/main" element={<Greetings />}></Route>
             </Routes>
