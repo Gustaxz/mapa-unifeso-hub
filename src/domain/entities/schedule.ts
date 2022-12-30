@@ -1,9 +1,8 @@
 import { Course } from './course'
+import { Period } from './period'
 
 export interface Schedule {
-    period: {
-        value: string
-    }
+    period: Period
     hour: string
     day: string
     course: Course

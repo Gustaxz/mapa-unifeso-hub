@@ -1,4 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
+import { Course } from '../src/domain/entities/course'
+import { Period } from '../src/domain/entities/period'
 
 export const api = {
     /**
@@ -27,6 +29,18 @@ export const api = {
 
     deleteSchedule: (responseChannel: string, data: any) => {
         ipcRenderer.send('delete-schedule', { responseChannel, params: data })
+    },
+
+    getSchedules: (
+        responseChannel: string,
+        course: Course,
+        period: Period,
+        day: string
+    ) => {
+        ipcRenderer.send('get-filterd-schedules', {
+            responseChannel,
+            params: { course, period, day },
+        })
     },
 
     /**

@@ -1,9 +1,12 @@
 import { Course } from '../../../../entities/Course'
+import { Period } from '../../../../entities/Period'
 import { Schedule } from '../../../../entities/Schedule'
 import { ScheduleRepository } from '../../../../repositories/schedule-repository'
 import { CreateCourseFirebase } from '../services/create-course-firebase'
 import { CreateScheduleFirebase } from '../services/create-schedule-firebase'
+import { DeleteCourseFirebase } from '../services/delete-course-firebase'
 import { DeleteScheduleFirebase } from '../services/delete-schedule-firebase'
+import { GetSchedulesFirebase } from '../services/get-schedules-firebase'
 import { ListCoursesFirebase } from '../services/list-courses-firebase'
 import { RetrievechedulesFirebase } from '../services/retrive-schedules-firebase'
 
@@ -14,6 +17,15 @@ export class FirebaseScheduleRepository implements ScheduleRepository {
             await createCourseFirebase.execute(course)
         } catch (error) {
             throw new Error('Ocorreu um erro ao criar o curso.')
+        }
+    }
+
+    async deleteCourse(course: Course): Promise<void> {
+        try {
+            const deleteCourseFirebase = new DeleteCourseFirebase()
+            await deleteCourseFirebase.execute(course)
+        } catch (error) {
+            throw new Error('Ocorreu um erro ao deletar o curso.')
         }
     }
 
@@ -69,6 +81,25 @@ export class FirebaseScheduleRepository implements ScheduleRepository {
             return retrive
         } catch (error) {
             throw new Error('Ocorreu um erro ao retornar os dados.')
+        }
+    }
+
+    async getSchedules(
+        period: Period,
+        course: Course,
+        day: string
+    ): Promise<Schedule[]> {
+        try {
+            const getSchedulesFirebase = new GetSchedulesFirebase()
+            const schedules = await getSchedulesFirebase.execute({
+                course,
+                day,
+                period,
+            })
+
+            return schedules
+        } catch (error: any) {
+            throw new Error(error)
         }
     }
 }

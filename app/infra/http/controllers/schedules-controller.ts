@@ -1,9 +1,12 @@
 import { AppModule } from '../../../app.module'
 import { Course } from '../../../entities/Course'
+import { Period } from '../../../entities/Period'
 import { Schedule } from '../../../entities/Schedule'
 import { CreateCourse } from '../../../services/create-course'
 import { CreateSchedule } from '../../../services/create-schedule'
+import { DeleteCourse } from '../../../services/delete-course'
 import { DeleteSchedule } from '../../../services/delete-schedule'
+import { GetSchedules } from '../../../services/get-schedules'
 import { ListCourses } from '../../../services/list-courses'
 import { RetrieveSchedules } from '../../../services/retrieve-schedules'
 
@@ -63,6 +66,38 @@ export class SchedulesController {
             }
         } catch (error) {
             throw new Error('Ocorreu um problema ao retornar os cursos.')
+        }
+    }
+
+    async deleteCourse(course: Course) {
+        try {
+            const deleteCourses = new DeleteCourse(
+                this.databaseScheduleProvioder
+            )
+
+            await deleteCourses.execute(course)
+        } catch (error) {
+            throw new Error('Ocorreu um problema ao deletar o curso.')
+        }
+    }
+
+    async getSchedules(course: Course, period: Period, day: string) {
+        try {
+            const getSchedules = new GetSchedules(
+                this.databaseScheduleProvioder
+            )
+
+            const schedules = await getSchedules.execute({
+                course,
+                day,
+                period,
+            })
+
+            return {
+                schedules,
+            }
+        } catch (error: any) {
+            throw new Error(error)
         }
     }
 

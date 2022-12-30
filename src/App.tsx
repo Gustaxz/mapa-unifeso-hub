@@ -73,7 +73,7 @@ export function App() {
 
                 {/* Reform Screens */}
                 <Route path="/building" element={<ReformScreen />}></Route>
-                <Route path="/statistics" element={<ReformScreen />}></Route>
+                <Route path="/statistics" element={<Greetings />}></Route>
 
                 <Route path="/main" element={<Greetings />}></Route>
             </Routes>

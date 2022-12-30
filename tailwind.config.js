@@ -10,7 +10,13 @@ module.exports = {
                 'giorno-pallete-400': '#bc4749',
                 'giorno-pallete-500': '#386641',
             },
+            flex: {
+                2: '2 2 2',
+            },
         },
     },
-    plugins: [],
+    plugins: [
+        require('tailwind-scrollbar')({ nocompatible: true }),
+        require('@tailwindcss/line-clamp'),
+    ],
 }

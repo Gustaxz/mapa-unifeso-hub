@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { CourseAPI } from '../../domain/api/controllers/course'
 import { ScheduleAPI } from '../../domain/api/controllers/schedule'
 import { Button } from '../Button'
@@ -26,8 +26,8 @@ export function Greetings() {
                 course: {
                     value: 'Teste 9',
                 },
-                day: 'Quarta',
-                hour: '20:00',
+                day: 'Segunda',
+                hour: '19:00',
                 period: {
                     value: '3',
                 },
@@ -88,7 +88,7 @@ export function Greetings() {
                 src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg"
                 alt="ReactJS logo"
             />
-            <p className="text-blue-700">Hell</p>
+            <Link to="/">HOME</Link>
             <Text>
                 An Electron boilerplate including TypeScript, React, Jest and
                 ESLint.

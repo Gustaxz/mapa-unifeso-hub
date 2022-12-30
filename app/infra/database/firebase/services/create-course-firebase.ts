@@ -9,7 +9,12 @@ export class CreateCourseFirebase {
             const updates: any = {}
 
             updates[dbPath + 'ID' + `/${course.value}`] = {
-                '1': '',
+                '1': {
+                    '18:00': {
+                        Segunda:
+                            'Afif - Não cadastrado - Não Cadastrado - Não Cadastrado',
+                    },
+                },
             }
 
             return firebase.update(dbRef, updates)

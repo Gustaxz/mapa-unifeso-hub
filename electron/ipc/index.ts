@@ -5,6 +5,8 @@ import { ListSchedulesChannel } from './channels/schedules/ListSchedulesChannel'
 import { CreateCourseChannel } from './channels/schedules/CreateCourseChannel'
 import { DeleteScheduleChannel } from './channels/schedules/DeleteScheduleChannel'
 import { ListCoursesChannel } from './channels/schedules/ListCoursesChannel'
+import { GetSchedulesChannel } from './channels/schedules/GetSchedulesChannel'
+import { DeleteCourseChannel } from './channels/schedules/DeleteCourseChannel'
 
 export class IPCChannels {
     private channels: IpcChannelInterface<any>[] = [
@@ -13,6 +15,8 @@ export class IPCChannels {
         new CreateCourseChannel(),
         new DeleteScheduleChannel(),
         new ListCoursesChannel(),
+        new GetSchedulesChannel(),
+        new DeleteCourseChannel(),
     ]
 
     public registerIpcChannels() {

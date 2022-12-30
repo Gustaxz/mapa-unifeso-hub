@@ -19,7 +19,7 @@ export class CoursesIPC implements CoursesProvider {
         })
     }
 
-    async list(): Promise<void> {
+    async list(): Promise<string[]> {
         return new Promise((resolve, reject) => {
             window.Main.listCourses('response-list-courses')
             window.Main.on(

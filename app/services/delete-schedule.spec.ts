@@ -4,7 +4,7 @@ import { Period } from '../entities/Period'
 import { CreateSchedule } from './create-schedule'
 import { DeleteSchedule } from './delete-schedule'
 
-describe('Create schedule', () => {
+describe('Delete schedule', () => {
     it('should be able to delete an schedule', async () => {
         const scheduleRepository = new InMemoryScheduleRepository()
         const createSchedule = new CreateSchedule(scheduleRepository)

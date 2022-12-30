@@ -36,7 +36,7 @@ export function ImageScreen({ screen }: IImageScreen) {
                 <img
                     src={graphs}
                     alt="imagem representando a tela escolhida"
-                    className="animate__animated animate__fadeIn max-h-[85%]"
+                    className="animate__animated animate__fadeIn max-h-[75%]"
                 />
             ) : null}
         </>
