@@ -1,4 +1,4 @@
-import { BsTrashFill } from 'react-icons/bs'
+import { DeleteCourseButton } from './DeleteCourseButton'
 
 interface IListScheduleCard {
     props: {
@@ -16,9 +16,10 @@ export function ListCourseCard({ props }: IListScheduleCard) {
             </p>
 
             <div className="flex justify-end">
-                <BsTrashFill
-                    size={24}
-                    className="text-red-400 cursor-pointer"
+                <DeleteCourseButton
+                    props={{
+                        name,
+                    }}
                 />
             </div>
         </div>

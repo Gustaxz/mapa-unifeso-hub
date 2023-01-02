@@ -8,7 +8,7 @@ export class CreateCourseFirebase {
         try {
             const updates: any = {}
 
-            updates[dbPath + 'ID' + `/${course.value}`] = {
+            updates[dbPath + `/${course.value}`] = {
                 '1': {
                     '18:00': {
                         Segunda:

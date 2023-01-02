@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
     resolve: {
@@ -8,5 +9,10 @@ module.exports = {
     module: {
         rules: require('./rules.webpack'),
     },
-    plugins: [new MiniCssExtractPlugin()],
+    plugins: [
+        new MiniCssExtractPlugin(),
+        new Dotenv({
+            ignoreStub: true,
+        }),
+    ],
 }

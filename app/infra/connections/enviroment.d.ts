@@ -9,6 +9,7 @@ declare global {
             FIREBASE_API_KEY: string
             FIREBASE_MESSAGING_SENDER_ID: string
             FIREBASE_MEASUREMENT_ID: string
+            FIREBASE_DATABASE_PATH: string
         }
     }
 }

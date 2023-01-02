@@ -16,7 +16,6 @@ export class DeleteScheduleFirebase {
 
             updates[
                 dbPath +
-                    'ID' +
                     `/${course.value}` +
                     `/${period.value}` +
                     `/${hour}` +

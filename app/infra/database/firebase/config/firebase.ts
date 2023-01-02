@@ -17,6 +17,6 @@ const firebaseApp = initializeApp({
 const storage = getStorage()
 const db = firebase.getDatabase()
 const dbRef = firebase.ref(db)
-const dbPath = '1WwX5WcGfxI7kMEVW8FQuNe4NNwH3sStcw5ZNg8pAcY4'
+const dbPath = process.env.FIREBASE_DATABASE_PATH
 
 export { storage, db, dbRef, firebaseApp, firebase, dbPath }

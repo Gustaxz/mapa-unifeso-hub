@@ -19,6 +19,22 @@ export class CoursesIPC implements CoursesProvider {
         })
     }
 
+    async delete(course: Course): Promise<void> {
+        return new Promise((resolve, reject) => {
+            window.Main.deleteCourse('response-delete-course', course)
+            window.Main.on(
+                'response-delete-course',
+                (data: IIPCResponse<any>) => {
+                    if (data.data) {
+                        return resolve(data.data)
+                    } else {
+                        reject(new Error('Não foi possível deletar o curso'))
+                    }
+                }
+            )
+        })
+    }
+
     async list(): Promise<string[]> {
         return new Promise((resolve, reject) => {
             window.Main.listCourses('response-list-courses')

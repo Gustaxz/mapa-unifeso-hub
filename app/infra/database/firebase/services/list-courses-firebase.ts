@@ -5,7 +5,7 @@ export class ListCoursesFirebase {
         try {
             let allData: {} = {}
             const snapshot = await firebase.get(
-                firebase.child(dbRef, `${dbPath}ID`)
+                firebase.child(dbRef, `${dbPath}`)
             )
 
             if (snapshot.exists()) {

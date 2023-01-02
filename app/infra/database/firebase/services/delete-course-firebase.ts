@@ -8,7 +8,7 @@ export class DeleteCourseFirebase {
         try {
             const updates: any = {}
 
-            updates[dbPath + 'ID' + `/${course.value}`] = null
+            updates[dbPath + `/${course.value}`] = null
 
             return firebase.update(dbRef, updates)
         } catch (error: any) {

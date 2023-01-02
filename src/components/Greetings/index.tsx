@@ -1,6 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
+import {
+    signInWithGoogle,
+    signOut,
+} from '../../../app/infra/connections/login/providers/google'
 import { CourseAPI } from '../../domain/api/controllers/course'
 import { ScheduleAPI } from '../../domain/api/controllers/schedule'
+import { IIPCResponse } from '../../domain/api/ipc/interfaces/response'
 import { Button } from '../Button'
 import { Container, Image, Text } from './styles'
 
@@ -13,29 +18,10 @@ export function Greetings() {
     const courseAPI = new CourseAPI()
 
     async function handleSayHello() {
-        const schedules = await scheduleAPI.list()
-        console.log(schedules)
-
         console.log('Message sent! Check main process log in terminal.')
     }
 
     async function handleSayNotHello() {
-        try {
-            await scheduleAPI.create({
-                container: 'Afif',
-                course: {
-                    value: 'Teste 9',
-                },
-                day: 'Segunda',
-                hour: '19:00',
-                period: {
-                    value: '3',
-                },
-            })
-        } catch (error: any) {
-            console.error(error.message)
-        }
-
         console.log('Message sent! Check main process log in terminal.')
     }
 
@@ -94,7 +80,7 @@ export function Greetings() {
                 ESLint.
             </Text>
             <Button onClick={handleSayHello}>List schedules</Button>
-            <Button onClick={handleSayNotHello}>Create an schedule</Button>
+            <Button onClick={handleSayNotHello}>logine</Button>
             <Button onClick={handleCreateCourse}>Create a course</Button>
             <Button onClick={handleDelete}>Delete an schedule</Button>
             <Button onClick={handleList}>List courses</Button>

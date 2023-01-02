@@ -14,4 +14,8 @@ export class CourseAPI {
 
         return courses
     }
+
+    async delete(course: Course) {
+        await this.courseProvider.delete(course)
+    }
 }

@@ -3,37 +3,29 @@ import { BsTrashFill } from 'react-icons/bs'
 import { ImSpinner8 } from 'react-icons/im'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { ScheduleAPI } from '../../domain/api/controllers/schedule'
+import { CourseAPI } from '../../domain/api/controllers/course'
 
-interface IDeleteScheduleButton {
+interface IDeleteCourseButton {
     props: {
-        period: string
-        hour: string
-        day: string
-        course: string
-        container: string
+        name: string
     }
 }
 
-export function DeleteScheduleButton({ props }: IDeleteScheduleButton) {
+export function DeleteCourseButton({ props }: IDeleteCourseButton) {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
 
     const deleteSchedule = async () => {
         try {
-            const scheduleAPI = new ScheduleAPI()
+            const courseAPI = new CourseAPI()
 
             setLoading(true)
-            await scheduleAPI.delete({
-                container: props.container,
-                course: { value: props.course },
-                day: props.day,
-                hour: props.hour,
-                period: { value: props.period },
+            await courseAPI.delete({
+                value: props.name,
             })
             setLoading(false)
 
-            toast.success('Horário deletado!', {
+            toast.success('Curso deletado!', {
                 position: 'top-left',
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -46,7 +38,7 @@ export function DeleteScheduleButton({ props }: IDeleteScheduleButton) {
 
             navigate(0)
         } catch (error) {
-            toast.error('Não foi possível deletar o horário.', {
+            toast.error('Não foi possível deletar o curso.', {
                 position: 'top-left',
                 autoClose: 5000,
                 hideProgressBar: false,

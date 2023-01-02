@@ -1,26 +1,19 @@
 import { Schedule } from '../../../../entities/Schedule'
-import { dbRef, firebase } from '../config/firebase'
+import { dbPath, dbRef, firebase } from '../config/firebase'
 
 export class RetrievechedulesFirebase {
     async execute(): Promise<Schedule[]> {
-        let data: Schedule[] = []
+        try {
+            let data: Schedule[] = []
 
-        await firebase
-            .get(
-                firebase.child(
-                    dbRef,
-                    '1WwX5WcGfxI7kMEVW8FQuNe4NNwH3sStcw5ZNg8pAcY4ID'
-                )
-            )
-            .then(snapshot => {
-                if (snapshot.exists()) {
-                    data = snapshot.val()
-                }
-            })
-            .catch((): any => {
-                throw new Error('Não foi possível retornar os dados.')
-            })
+            const snapshot = await firebase.get(firebase.child(dbRef, dbPath))
+            if (snapshot.exists()) {
+                data = snapshot.val()
+            }
 
-        return data
+            return data
+        } catch (error) {
+            throw new Error('Não foi possível retornar os horários')
+        }
     }
 }

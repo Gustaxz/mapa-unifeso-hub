@@ -20,7 +20,7 @@ export class GetSchedulesFirebase {
             let firebaseData: any[] = []
 
             const snapshot = await firebase.get(
-                firebase.child(dbRef, `${dbPath}ID/`)
+                firebase.child(dbRef, `${dbPath}`)
             )
 
             if (snapshot.exists()) {

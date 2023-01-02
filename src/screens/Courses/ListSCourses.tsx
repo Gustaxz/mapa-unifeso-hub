@@ -48,12 +48,9 @@ export function ListCoursesScreen() {
                         </div>
                     </div>
                 ) : (
-                    <div className="flex justify-center items-center h-[30vh]">
-                        <ImSpinner8
-                            className="animate-spin text-giorno-pallete-500"
-                            size={64}
-                        />
-                    </div>
+                    <p className="ml-2 mt-4 italic text-slate-800">
+                        Nenhum curso encontrado
+                    </p>
                 )}
             </div>
         </div>

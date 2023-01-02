@@ -27,6 +27,10 @@ export const api = {
         ipcRenderer.send('list-courses', { responseChannel })
     },
 
+    deleteCourse: (responseChannel: string, course: Course) => {
+        ipcRenderer.send('delete-course', { responseChannel, params: course })
+    },
+
     deleteSchedule: (responseChannel: string, data: any) => {
         ipcRenderer.send('delete-schedule', { responseChannel, params: data })
     },
@@ -41,6 +45,10 @@ export const api = {
             responseChannel,
             params: { course, period, day },
         })
+    },
+
+    loginWithGoogle: (responseChannel: string) => {
+        ipcRenderer.send('login-google', { responseChannel })
     },
 
     /**

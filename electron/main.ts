@@ -1,10 +1,12 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 import { IPCChannels } from './ipc'
 import electronLog from 'electron-log'
 import path from 'path'
 import fs from 'fs/promises'
 import { getMiddleOfString } from '../helpers/get-middle-string'
+// import { createTray } from './tray'
 
+let updateApp
 let mainWindow: BrowserWindow | null
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
@@ -12,10 +14,10 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 
 const logPath = path.join(__dirname, '..', '..', 'logs/main.log')
 
-// const assetsPath =
-//   process.env.NODE_ENV === 'production'
-//     ? process.resourcesPath
-//     : app.getAppPath()
+const assetsPath =
+    process.env.NODE_ENV === 'production'
+        ? process.resourcesPath
+        : app.getAppPath()
 
 electronLog.catchErrors({
     onError: error => {
@@ -36,80 +38,31 @@ electronLog.transports.file.resolvePath = () => {
     return logPath
 }
 
-// require('electron-reload')(__dirname, {
-//     electron: path.join(
-//         __dirname,
-//         '..',
-//         '..',
-//         'node_modules',
-//         '.bin',
-//         'electron'
-//     ),
-// })
+function setUpdates() {
+    updateApp = require('update-electron-app')
 
-// function createWindow(id: string, options: WindowOptions = {}) {
-//     const window = new BrowserWindow({
-//         ...options,
-//     })
-
-//     electronLog.info(`${id} window created.`)
-
-//     if (id === 'main') mainWindow = window
-
-//     const devServerURL = createURLRoute(process.env.ELECTRON_RENDERER_URL!, id)
-
-//     const fileRoute = createFileRoute(
-//         path.join(__dirname, '../renderer/main_window/index.html'),
-//         id
-//     )
-
-//     process.env.NODE_ENV === 'development'
-//         ? window.loadURL(devServerURL)
-//         : window.loadFile(...fileRoute)
-
-//     electronLog.info(`${id} window container loaded.`)
-
-//     return window
-// }
-
-// function createOtherWindow() {
-//     let otherWindow: BrowserWindow | null
-
-//     otherWindow = new BrowserWindow({
-//         // icon: path.join(assetsPath, 'assets', 'icon.png'),
-//         width: 800,
-//         height: 500,
-//         webPreferences: {
-//             nodeIntegration: false,
-//             contextIsolation: true,
-//             preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
-//         },
-//     })
-
-//     electronLog.info('Window created.')
-
-//     otherWindow.loadURL(`${MAIN_WINDOW_WEBPACK_ENTRY}/#/main`)
-
-//     electronLog.info('Window container is loaded.')
-
-//     otherWindow.on('closed', () => {
-//         mainWindow = null
-//     })
-// }
+    updateApp({
+        updateInterval: '1 hour',
+        notifyUser: true,
+    })
+}
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        // icon: path.join(assetsPath, 'assets', 'icon.png'),
+        icon: path.join(assetsPath, 'assets', 'icon.png'),
         width: 1100,
         height: 700,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
             preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+            nativeWindowOpen: true,
         },
     })
 
-    console.log(MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY)
+    if (process.env.NODE_ENV === 'production') {
+        Menu.setApplicationMenu(null)
+    }
 
     electronLog.info('Window created.')
 
@@ -120,36 +73,28 @@ function createWindow() {
     mainWindow.on('closed', () => {
         mainWindow = null
     })
+
+    // createTray(mainWindow)
 }
 
 async function registerListeners() {
-    /**
-     * This comes from bridge integration, check bridge.ts
-     */
-    // ipcMain.on('message', async (_, message) => {
-    //     const appModule = new AppModule()
-
-    //     const retrieveSchedule = new RetrieveSchedules(
-    //         appModule.scheduleDatabaseProvider
-    //     )
-
-    //     const allData = await retrieveSchedule.execute()
-
-    //     console.log(JSON.stringify(allData))
-    // })
-
     const ipcChannels = new IPCChannels()
     ipcChannels.registerIpcChannels()
 
     electronLog.info('IPC channels registered.')
 }
 
+async function buildDependencies() {
+    await registerListeners()
+}
+
 app.whenReady()
     .then(() => {
+        setUpdates()
         createWindow()
     })
     .then(() => fs.unlink(logPath))
-    .then(registerListeners)
+    .then(buildDependencies)
     .catch(e => console.error(e))
 
 app.on('window-all-closed', () => {

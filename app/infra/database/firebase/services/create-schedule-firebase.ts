@@ -26,7 +26,7 @@ export class CreateScheduleFirebase {
             const snapshot = await firebase.get(
                 firebase.child(
                     dbRef,
-                    `${dbPath}ID/${course.value}/${period.value}/${hour}`
+                    `${dbPath}/${course.value}/${period.value}/${hour}`
                 )
             )
 
@@ -42,11 +42,7 @@ export class CreateScheduleFirebase {
             })
 
             updates[
-                dbPath +
-                    'ID' +
-                    `/${course.value}` +
-                    `/${period.value}` +
-                    `/${hour}`
+                dbPath + `/${course.value}` + `/${period.value}` + `/${hour}`
             ] = res
 
             return firebase.update(dbRef, updates)

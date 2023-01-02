@@ -1,6 +1,13 @@
 import { Greetings } from './components/Greetings'
 import { ToastContainer, toast } from 'react-toastify'
-import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
+import {
+    HashRouter,
+    Navigate,
+    redirect,
+    Route,
+    Routes,
+    useHref,
+} from 'react-router-dom'
 
 import 'react-toastify/dist/ReactToastify.css'
 import { Home } from './screens/Home'
@@ -27,6 +34,8 @@ export function App() {
             theme: 'light', // adicionar opção dark light
         })
     })
+
+    window.Main.on('open-courses-tray', () => console.log('tray'))
 
     return (
         <HashRouter>
@@ -73,9 +82,7 @@ export function App() {
 
                 {/* Reform Screens */}
                 <Route path="/building" element={<ReformScreen />}></Route>
-                <Route path="/statistics" element={<Greetings />}></Route>
-
-                <Route path="/main" element={<Greetings />}></Route>
+                <Route path="/statistics" element={<ReformScreen />}></Route>
             </Routes>
         </HashRouter>
     )
