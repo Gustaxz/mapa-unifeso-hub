@@ -17,7 +17,7 @@ Um projeto que auxilia criação de horários para o site mapaunifeso.web.app.
 ## Como baixar
 
 - Vá na parte de releases do repositório
-- Baixe o arquivo .zip
+- Baixe o arquivo .rar
 - Descompacte ele
 - Abra o arquivo .exe
 
