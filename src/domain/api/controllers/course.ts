@@ -10,6 +10,7 @@ export class CourseAPI {
     }
 
     async list() {
+        console.log('controller ativado')
         const courses = await this.courseProvider.list()
 
         return courses

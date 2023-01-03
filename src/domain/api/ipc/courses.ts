@@ -36,11 +36,14 @@ export class CoursesIPC implements CoursesProvider {
     }
 
     async list(): Promise<string[]> {
+        console.log('list ipc aqui')
         return new Promise((resolve, reject) => {
             window.Main.listCourses('response-list-courses')
+            console.log('enviado')
             window.Main.on(
                 'response-list-courses',
                 (data: IIPCResponse<{ courses: any }>) => {
+                    console.log(data)
                     if (data.data) {
                         return resolve(data.data.courses)
                     } else {
