@@ -1,35 +1,31 @@
-## Electron + TypeScript + React
+# Mapa Unifeso Hub
 
-Boilerplate for a project using Electron, React and Typescript.
+Um projeto que auxilia criação de horários para o site mapaunifeso.web.app.
 
-## Installation
+### Especificações
+ - Por enquanto apenas para windows x64
 
-Use a package manager of your choice (npm, yarn, etc.) in order to install all dependencies
+## Screenshots
 
-```bash
-yarn
-```
+<img src="https://github.com/Gustaxz/mapa-unifeso-hub/blob/master/.github/screenshots/tela1.png" width="500"></img>
+<img src="https://github.com/Gustaxz/mapa-unifeso-hub/blob/master/.github/screenshots/tela-cursos.png" width="500"></img>
+<img src="https://github.com/Gustaxz/mapa-unifeso-hub/blob/master/.github/screenshots/cadastrar-horario.png" width="500"></img>
+<img src="https://github.com/Gustaxz/mapa-unifeso-hub/blob/master/.github/screenshots/listar-horario.png" width="500"></img>
+<img src="https://github.com/Gustaxz/mapa-unifeso-hub/blob/master/.github/screenshots/cadastrar-curso.png" width="500"></img>
+<img src="https://github.com/Gustaxz/mapa-unifeso-hub/blob/master/.github/screenshots/listar-cursos.png" width="500"></img>
 
-## Usage
+## Como baixar
 
-Just run `start` script.
+- Vá na parte de releases do repositório
+- Baixe o arquivo .zip
+- Descompacte ele
+- Abra o arquivo .exe
 
-```bash
-yarn start
-```
 
-## Packaging
+## Contribuindo
 
-To generate the project package based on the OS you're running on, just run:
+Sinta-se a vontade para contribuir!
 
-```bash
-yarn package
-```
-
-## Contributing
-
-Pull requests are always welcome 😃.
-
-## License
+## Licença
 
 [MIT](https://choosealicense.com/licenses/mit/)
